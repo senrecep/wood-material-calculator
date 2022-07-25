@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { defineProps, ref, defineEmits } from "vue";
-// var emit = defineEmits(["changeValue"]);
 var emit = defineEmits<{ (e: "changeValue", value: number): void }>();
 
 const props = defineProps({
@@ -20,8 +19,6 @@ const props = defineProps({
     required: false,
   },
 });
-
-console.log(props.label);
 
 const value = ref(props.value);
 const handleClear = () => {

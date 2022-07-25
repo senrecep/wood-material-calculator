@@ -25,7 +25,7 @@ const addItem = () => {
 
     <calculation-result key="result" :param="calculationItems" />
 
-    <v-table fixed-header height="80vh">
+    <v-table fixed-header height="66vh">
       <thead>
         <tr>
           <th class="text-left"></th>

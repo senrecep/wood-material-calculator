@@ -18,16 +18,13 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, defineProps, computed } from "vue";
-import {} from "vuex";
-const props = defineProps({
-  drawer: {
-    type: Boolean,
-    required: true,
-  },
+import { ref, computed } from "vue";
+import { useStore } from 'vuex'
+const store = useStore()
+const drawer = computed({
+  get: () => store.state.drawer,
+  set: (value) => store.commit('setDrawer', value)
 });
-
-const drawer = computed(() => props.drawer);
 
 const items = ref([
   { title: "Ana sayfa", icon: "mdi-home-variant-outline", path: "/" },

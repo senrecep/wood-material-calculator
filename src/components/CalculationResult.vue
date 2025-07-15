@@ -1,14 +1,29 @@
 <script setup lang="ts">
 import { CalculationItem } from "../types/CalculationItem";
 import { CalculationResult } from "../types/CalculationResult";
-import { computed, defineProps, ref, watch } from "vue";
+import { computed, defineProps, ref, watch, onMounted, onUnmounted } from "vue";
 import { formatTry, formatDateTime } from "../utils/Formaters";
 const props = defineProps<{
   param: CalculationItem[];
 }>();
 const items = computed(() => props.param);
 const result = ref(new CalculationResult());
-const dateTime = computed(() => formatDateTime(new Date()));
+const currentTime = ref(new Date());
+const dateTime = computed(() => formatDateTime(currentTime.value));
+
+let intervalId: number | null = null;
+
+onMounted(() => {
+  intervalId = setInterval(() => {
+    currentTime.value = new Date();
+  }, 1000);
+});
+
+onUnmounted(() => {
+  if (intervalId) {
+    clearInterval(intervalId);
+  }
+});
 
 const Calculate = () => {
   result.value.Calculate(items.value);
@@ -45,7 +60,7 @@ watch(items.value, () => {
         </v-col>
         <v-col>
           <v-card class="text-center">
-            <v-card-title>KDV (18%)</v-card-title>
+            <v-card-title>KDV (20%)</v-card-title>
             <v-card-text class="text-h6">{{
               formatTry(result.VAT)
             }}</v-card-text>
@@ -53,7 +68,7 @@ watch(items.value, () => {
         </v-col>
         <v-col>
           <v-card class="text-center">
-            <v-card-title>FIYAT + KDV (18%)</v-card-title>
+            <v-card-title>FIYAT + KDV (20%)</v-card-title>
             <v-card-text class="text-h6">{{
               formatTry(result.TotalPrice)
             }}</v-card-text>

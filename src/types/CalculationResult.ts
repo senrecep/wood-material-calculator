@@ -21,7 +21,7 @@ export class CalculationResult {
     this.Price = items.reduce((acc, item) => acc + item.TotalPrice, 0);
   }
   CalculateVAT() {
-    this.VAT = this.Price * 0.18;
+    this.VAT = this.Price * 0.2;
   }
   CalculateTotalPrice() {
     this.TotalPrice = this.Price + this.VAT;

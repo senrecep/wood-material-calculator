@@ -1,0 +1,19 @@
+services:
+  wood-calculator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: wood-material-calculator
+    restart: unless-stopped
+    expose:
+      - "80"
+    environment:
+      - NODE_ENV=production
+    labels:
+      - "traefik.enable=true"
+    networks:
+      - dokploy-network
+
+networks:
+  dokploy-network:
+    external: true

@@ -5,6 +5,8 @@ services:
       dockerfile: Dockerfile
     container_name: wood-material-calculator
     restart: unless-stopped
+    expose:
+      - "80"
     environment:
       - NODE_ENV=production
     networks:

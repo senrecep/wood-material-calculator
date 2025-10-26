@@ -9,7 +9,7 @@ RUN yarn install --frozen-lockfile --ignore-engines
 
 COPY . .
 
-RUN yarn build
+RUN yarn build && ls -la /app/dist
 
 # Production stage
 FROM nginx:alpine AS production-stage
@@ -17,6 +17,8 @@ FROM nginx:alpine AS production-stage
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 COPY --from=build-stage /app/dist /usr/share/nginx/html
+
+RUN ls -la /usr/share/nginx/html
 
 EXPOSE 80
 
